@@ -1,0 +1,54 @@
+Row: 1, Repo: https://github.com/earaujoassis/sentiment-analysis, File: https://github.com/earaujoassis/sentiment-analysis/blob/master/index.py, Duration: 167.04 sec
+  → Cumulative Time: 167.04 sec
+
+Row: 2, Repo: https://github.com/beekarthik/JournalBot, File: https://github.com/beekarthik/JournalBot, Duration: 770.26 sec
+  → Cumulative Time: 937.3 sec
+
+Row: 3, Repo: https://github.com/OkapalDominic/animal_analysis, File: Merged .py files, Duration: 692.09 sec
+  → Cumulative Time: 1629.3899999999999 sec
+
+Row: 4, Repo: https://github.com/kmzjy110/calhacksv2, File: Merged .py files, Duration: 739.11 sec
+  → Cumulative Time: 2368.5 sec
+
+Row: 5, Repo: https://github.com/alecadub/ConUHacks5, File: Merged .py files, Duration: 679.44 sec
+  → Cumulative Time: 3047.94 sec
+
+Row: 6, Repo: https://github.com/gakwong/DailySentiment, File: Merged .py files, Duration: 639.86 sec
+  → Cumulative Time: 3687.8 sec
+
+Row: 7, Repo: https://github.com/markcxli/EC601_twitter_keyword, File: Merged .py files, Duration: 707.26 sec
+  → Cumulative Time: 4395.06 sec
+
+Row: 8, Repo: https://github.com/Dacs95/ElectionSentimentAnalysis, File: Merged .py files, Duration: 919.04 sec
+  → Cumulative Time: 5314.1 sec
+
+Row: 9, Repo: https://github.com/imharrymargalotti/hackathonIC, File: Merged .py files, Duration: 599.38 sec
+  → Cumulative Time: 5913.4800000000005 sec
+
+Row: 10, Repo: https://github.com/jtkrumlauf/Hapi, File: https://github.com/jtkrumlauf/Hapi/blob/master/main.py, Duration: 596.0 sec
+  → Cumulative Time: 6509.4800000000005 sec
+
+Row: 11, Repo: https://github.com/ShineunYoon/MiniProject1, File: https://github.com/ShineunYoon/MiniProject1/blob/master/sentiment_analysis.py, Duration: 130.45 sec
+  → Cumulative Time: 6639.93 sec
+
+Row: 12, Repo: https://github.com/ecpullen/NewsWeb, File: Merged .py files, Duration: 664.36 sec
+  → Cumulative Time: 7304.29 sec
+
+Row: 13, Repo: https://github.com/biensupernice/reach-feel, File: Merged .py files, Duration: 298.47 sec
+  → Cumulative Time: 7602.76 sec
+
+Row: 14, Repo: https://github.com/ashoksiri/roommate_vali, File: Merged .py files, Duration: 761.29 sec
+  → Cumulative Time: 8364.05 sec
+
+Row: 15, Repo: https://github.com/ClareNewman/sentiment-analysis, File: https://github.com/ClareNewman/sentiment-analysis/blob/master/NaturalLanguageProcessing.py, Duration: 220.92 sec
+  → Cumulative Time: 8584.97 sec
+
+Row: 16, Repo: https://github.com/acm-projects/vr-assistant, File: Merged .py files, Duration: 573.08 sec
+  → Cumulative Time: 9158.05 sec
+
+Row: 17, Repo: https://github.com/maxyo11/YOOP, File: Merged .py files, Duration: 751.74 sec
+  → Cumulative Time: 9909.789999999999 sec
+
+Row: 18, Repo: https://github.com/tonylearn09/emobot_server, File: https://github.com/tonylearn09/emobot_server/blob/master/emobot.py, Duration: 452.96 sec
+  → Cumulative Time: 10362.749999999998 sec
+

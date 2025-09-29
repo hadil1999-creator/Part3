@@ -1,0 +1,12 @@
+Row: 1, Repo: https://github.com/Subrahmanyajoshi/Cancer-Detection-using-GCP, File: https://github.com/Subrahmanyajoshi/Cancer-Detection-using-GCP/blob/a7b93fba4b59f1ade44c0679d58edee6b0180662/detectors/tf_gcp/trainer.py#L98, Duration: 4.67 sec
+  → Cumulative Time: 4.67 sec
+
+Row: 2, Repo: https://github.com/Autonoma-AI/vertex-pipeline-example, File: https://github.com/Autonoma-AI/vertex-pipeline-example/blob/d8afad789e178a4dd806729a751d2487651dc947/images/training/app.py#L424, Duration: 3.66 sec
+  → Cumulative Time: 8.33 sec
+
+Row: 3, Repo: https://github.com/asyml/texar-pytorch, File: Merged .py files, Duration: 5.18 sec
+  → Cumulative Time: 13.51 sec
+
+Row: 4, Repo: https://github.com/insitro/redun, File: Merged .py files, Duration: 4.05 sec
+  → Cumulative Time: 17.56 sec
+

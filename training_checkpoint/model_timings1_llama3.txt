@@ -1,0 +1,12 @@
+Row: 1, Repo: https://github.com/DIVYANI-DROI/Suppy-chain-optimization, File: https://github.com/DIVYANI-DROI/Suppy-chain-optimization/blob/832f5aade8a66041ea8b32ad0300a81705fad4a6/Supply%20chain%20optimization.py#L369, Duration: 392.74 sec
+  → Cumulative Time: 392.74 sec
+
+Row: 2, Repo: https://github.com/Autonoma-AI/vertex-pipeline-example, File: https://github.com/Autonoma-AI/vertex-pipeline-example/blob/d8afad789e178a4dd806729a751d2487651dc947/images/training/app.py#L196, Duration: 104.68 sec
+  → Cumulative Time: 497.42 sec
+
+Row: 3, Repo: https://github.com/asyml/texar-pytorch, File: Merged .py files, Duration: 806.57 sec
+  → Cumulative Time: 1303.99 sec
+
+Row: 4, Repo: https://github.com/insitro/redun, File: Merged .py files, Duration: 798.2 sec
+  → Cumulative Time: 2102.19 sec
+

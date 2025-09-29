@@ -1,0 +1,6 @@
+Row: 1, Repo: https://github.com/ovokpus/Python-Azure-AI-REST-APIs, File: https://github.com/ovokpus/Python-Azure-AI-REST-APIs/blob/main/text-analytics-sdk/text-analysis.py, Duration: 821.4 sec
+  → Cumulative Time: 821.4 sec
+
+Row: 2, Repo: https://github.com/jtkrumlauf/Hapi, File: https://github.com/jtkrumlauf/Hapi/blob/b3aa4b0e76b32cd1e9dbf6c1767feec470e870e4/main.py#L166, Duration: 5615.43 sec
+  → Cumulative Time: 6436.83 sec
+

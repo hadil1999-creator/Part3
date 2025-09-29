@@ -1,0 +1,477 @@
+### Row: 1
+### Repository: https://github.com/ovokpus/Python-Azure-AI-REST-APIs
+### File: https://github.com/ovokpus/Python-Azure-AI-REST-APIs/blob/main/text-analytics-sdk/text-analysis.py
+<think>
+Okay, I'm looking at this code, and I need to figure out how to fix the "Not using batch API for data processing" issue. Let me start by understanding the problem.
+
+The current code processes each text file individually. For each file, it sends a separate API request to detect language, sentiment, extract phrases, entities, and linked entities. That's a lot of separate calls, especially if there are many files. This can cause OOM issues, slow things down, and cost more because each API call has overhead.
+
+So, the solution is to use batch processing. Instead of processing each file one by one, I should batch all the texts together and send a single API request for each analysis type. That way, I reduce the number of API calls and process data more efficiently.
+
+First, I'll read all the text files into a list. Then, I'll split this list into chunks. Why chunks? Because even though I'm batching, sending too much data at once might cause issues, so breaking it into manageable sizes makes sense.
+
+I'll choose a chunk size, maybe 10 or 100. For this example, I'll go with 10 to keep it simple. Then, I'll loop through each chunk, process each API call in batches, and extract the results.
+
+Wait, in the original code, for each file, it's making multiple API calls (detect language, sentiment, etc.). If I batch all files, I can make one API call for all files at once. But I also need to handle each type of analysis separately because each might require a different API method.
+
+So, the steps are:
+
+1. Collect all texts into a list.
+2. Split the list into chunks to avoid overwhelming the API.
+3. For each chunk, perform all necessary analyses in batches.
+4. Extract and print the results for each document in the chunk.
+
+Let me think about the data structures. Each API method returns a list of results corresponding to the documents. So, for each chunk of documents, I'll get a chunk of results for each analysis.
+
+I need to make sure I handle the index correctly so that each document's results are correctly mapped. Since each chunk is processed together, the index within the chunk should align with the results.
+
+Now, in code terms, I'll modify the main function. After reading all the texts into a list, I'll loop over each chunk. For each chunk, I'll call each API method once with the entire chunk. Then, I'll loop through each document in the chunk and print all the analysis results together.
+
+I should also adjust the print statements to reflect the batched approach, making sure each document's output is grouped correctly.
+
+Potential issues to consider: API limits, chunk size optimization. I'll set a default chunk size, but maybe it can be adjusted based on actual limits or performance.
+
+Testing is important. I'll make sure that the refactored code correctly processes all documents without missing any, and that each document's analyses are correctly associated.
+
+In summary, the key changes are:
+
+- Reading all texts into a list first.
+- Splitting into chunks.
+- Using batch API calls for each analysis per chunk.
+- Processing and printing results per document within each chunk.
+
+This should reduce the number of API calls, improve efficiency, and prevent issues like OOM or high latency.
+</think>
+
+Refactored Code:
+
+```python
+def main():
+    try:
+        # Get Configuration Settings
+        load_dotenv()
+        cog_endpoint = os.getenv('COG_SERVICE_ENDPOINT')
+        cog_key = os.getenv('COG_SERVICE_KEY')
+
+        # Create client using endpoint and key
+        credential = AzureKeyCredential(cog_key)
+        cog_client = TextAnalyticsClient(endpoint=cog_endpoint, credential=credential)
+
+        # Analyze text files in batches
+        reviews_folder = 'reviews'
+        texts = []
+        file_names = []
+
+        # Read all text files into a list
+        for file_name in os.listdir(reviews_folder):
+            file_path = os.path.join(reviews_folder, file_name)
+            with open(file_path, 'r', encoding='utf8') as file:
+                texts.append(file.read())
+                file_names.append(file_name)
+
+        # Process documents in batches
+        chunk_size = 10  # Number of documents to process at once
+        for i in range(0, len(texts), chunk_size):
+            chunk = texts[i:i + chunk_size]
+            chunk_file_names = file_names[i:i + chunk_size]
+
+            # Detect language for the entire batch
+            languages = cog_client.detect_language(documents=chunk)
+            
+            # Analyze sentiment for the entire batch
+            sentiment_results = cog_client.analyze_sentiment(documents=chunk)
+            
+            # Extract key phrases for the entire batch
+            phrase_results = cog_client.extract_key_phrases(documents=chunk)
+            
+            # Recognize entities for the entire batch
+            entity_results = cog_client.recognize_entities(documents=chunk)
+            
+            # Recognize linked entities for the entire batch
+            linked_entity_results = cog_client.recognize_linked_entities(documents=chunk)
+
+            # Process results for each document in the chunk
+            for j in range(len(chunk_file_names)):
+                file_name = chunk_file_names[j]
+                print('\n-------------\n' + file_name)
+                
+                # Language
+                detected_language = languages[j].primary_language.name
+                print('\nLanguage: {}'.format(detected_language))
+                
+                # Sentiment
+                sentiment = sentiment_results[j].sentiment
+                print("\nSentiment: {}".format(sentiment))
+                
+                # Key Phrases
+                phrases = phrase_results[j].key_phrases
+                if phrases:
+                    print("\nKey Phrases:")
+                    for phrase in phrases:
+                        print('\t{}'.format(phrase))
+                
+                # Entities
+                entities = entity_results[j].entities
+                if entities:
+                    print("\nEntities")
+                    for entity in entities:
+                        print('\t{} ({})'.format(entity.text, entity.category))
+                
+                # Linked Entities
+                linked_entities = linked_entity_results[j].entities
+                if linked_entities:
+                    print("\nLinks")
+                    for linked_entity in linked_entities:
+                        print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
+
+    except Exception as e:
+        print(f"Error: {e}")
+```
+
+Summary of Changes:
+
+- **Batched Processing:** Instead of processing each file individually, we first read all text files into memory and process them in batches using the Text Analytics API's batch capabilities.
+- **Chunking:** Documents are processed in chunks (default size of 10) to optimize API calls while preventing memory issues.
+- **Single API Calls:** Replaced multiple individual API calls with single batch API calls for language detection, sentiment analysis, key phrase extraction, entity recognition, and linked entity recognition.
+- **Efficient Data Handling:** Results are now processed in batches, significantly reducing the number of API calls and improving performance.
+- **Maintained Functionality:** Preserved the original functionality while improving efficiency and reducing operational costs.
+
+These changes address the "Not using batch API for data processing" issue by leveraging cloud-provided batch processing APIs to optimize performance and resource usage.
+
+### Row: 2
+### Repository: https://github.com/jtkrumlauf/Hapi
+### File: https://github.com/jtkrumlauf/Hapi/blob/b3aa4b0e76b32cd1e9dbf6c1767feec470e870e4/main.py#L166
+<think>
+Okay, I need to help refactor this code to fix the "Not using batch API for data processing" issue. Let me look at the code and understand where the problem lies.
+
+The original code processes each tweet individually for sentiment analysis. I see that in the get_overall_sentiment function, it loops through each tweet and calls client.analyze_sentiment one by one. That's inefficient because it makes a separate API call for each tweet, which can be slow and might cause network issues or timeouts, especially with many tweets.
+
+So, the plan is to switch from processing each tweet individually to using batch processing. The Google Cloud Natural Language API supports sending multiple documents in a single request. This will reduce the number of API calls, making the process faster and more efficient.
+
+First, I'll look at the get_overall_sentiment function. Instead of looping through each tweet, I'll create a list of Document objects. Then, I'll send this list to the API's analyze_sentiment method all at once.
+
+I should make sure to capture the results correctly. Each document in the response will have a sentiment score. I'll need to handle these in the same way as before but now in a batch.
+
+I'll also need to adjust the variables like NUM_POS_TWEETS, MOST_POSITIVITY, etc., to correctly track the maximum and counts based on the batch results.
+
+Another thing to consider is the batch size. If there are too many tweets, sending them all at once might not be feasible. But in this case, since the maximum is 50, it's manageable in one batch.
+
+I'll modify the function to build a list of documents and then process the results. I'll also update the global variables accordingly.
+
+So, the main steps are:
+
+1. Replace the loop that sends each tweet individually with a batch request.
+2. Create a list of Document objects for all tweets.
+3. Call analyze_sentiment with the entire list.
+4. Iterate over the results to calculate the overall sentiment and update the global variables.
+
+I also need to ensure that the function still returns the correct overall sentiment and that all the global variables are properly updated.
+
+Testing this change would involve checking if the batch processing correctly captures all sentiments and updates the statistics without issues.
+
+I think that's the main change needed. I'll apply this to the code and make sure the rest of the logic remains consistent.
+</think>
+
+Refactored Code:
+```python
+import os
+import json
+from flask import Flask, request, render_template
+from google.cloud import language
+from google.cloud.language import enums
+from google.cloud.language import types
+from google.oauth2 import service_account
+
+# Allows to listen to specified tweets as they are posted
+import tweepy
+from tweepy.streaming import StreamListener
+from tweepy import OAuthHandler, Stream, API, Cursor
+import twitter_credentials 
+
+app = Flask(__name__)
+
+private_key = """
+{
+}
+
+"""
+info = json.loads(private_key, strict=False)
+credentials = service_account.Credentials.from_service_account_info(info)
+
+
+AVG_SENTIMENT = 0.0
+MOST_POSITIVE_TWEET = ""
+MOST_NEGATIVE_TWEET = ""
+NUM_POS_TWEETS = 0
+NUM_NEG_TWEETS = 0
+NUM_TWEETS_OMITTED = 0
+MOST_POSITIVITY= -1
+MOST_NEGATIVITY = 1
+NUM_NEUTRAL = 0
+
+
+# Removes unecessary data from tweet
+def filter_tweet(tweet):
+    tweet_list = tweet.split(" ")
+    print("Original tweet_list: " + str(tweet_list))
+    removals = []
+    removal_count = 0
+    for token in tweet_list:
+        if len(token) == 0:
+            removal_count += 1
+            continue
+        if token == "RT" or token[0] == "@": 
+            removals.append(removal_count)
+        elif len(token) >= 5: 
+            if token[0:4] == "http":
+                removals.append(removal_count)
+        removal_count += 1
+    print("Removals: " + str(removals))
+    for ind in reversed(removals):
+        del tweet_list[ind]
+    print("Filtered tweet list: " + str(tweet_list))
+    return ' '.join(tweet_list)
+
+# For specific user interaction
+class TwitterClient():
+    def __init__(self, twitter_user):
+        self.auth = TwitterAuthenticator().authenticate_twitter_app()
+        self.twitter_client = API(self.auth)    
+        self.twitter_user = twitter_user
+    
+    # Gets specified number of tweets from user
+    def get_tweets(self, num_tweets):
+        global NUM_TWEETS_OMITTED
+        tweets = []
+        count = 0
+        for tweet in Cursor(self.twitter_client.user_timeline, id=self.twitter_user).items(num_tweets):
+            if(tweet.lang == "en" and len(tweet.text) != 0):
+                print("Original tweet: " + tweet.text)
+                filtered = filter_tweet(tweet.text)
+                print("Filtered tweet: " + filtered)
+                tweets.append(filtered)
+                count += 1
+            else:
+                print("Omitted Tweet: " + tweet.text)
+                NUM_TWEETS_OMITTED += 1
+        return tweets, count 
+
+# Class for general Twitter authentication
+class TwitterAuthenticator():
+    def authenticate_twitter_app(self):
+        auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, 
+                            twitter_credentials.CONSUMER_SECRET)
+        auth.set_access_token(twitter_credentials.ACCESS_TOKEN, 
+                                twitter_credentials.ACCESS_TOKEN_SECRET)
+        return auth
+
+
+# Class for streaming and processing live tweets
+# ** Not currently in use 
+class TwitterStreamer():
+    # Constructor
+    def __init__(self):
+        self.twitter_authenticator = TwitterAuthenticator()   
+ 
+    # Handles Twitter authentication and connection to Twitter Streaming API
+    def stream_tweets(self, hash_tag):   
+        auth = self.twitter_authenticator.authenticate_twitter_app()
+        api = tweepy.API(auth,wait_on_rate_limit=True)
+        tweets = []
+        for tweet in tweepy.Cursor(api.search,q=hash_tag,count=1,lang="en").items():
+            tweets.append(tweet.text)
+        return tweets
+    
+    
+# Basic listener class that just prints received tweets to stdout 
+# Not currently in use
+class TwitterListener(StreamListener):
+    # Overriden method which takes in data streamed in from StreamListener
+    def on_status(self, status):
+        try: 
+            print(status.text)
+        except BaseException as e:
+            print("Error on_data: %s" % str(e))
+        return True       
+
+    # Overriden method which happens if error occurs
+    def on_error(self, status):
+        # If we are throttling Twitter API
+        if status == 420:
+            return False
+        print(status)
+
+"""
+    Absolutely abhorrent method that is only here because we don't understand
+    how flask works. Sorry
+"""
+def setGlobals():
+        global AVG_SENTIMENT
+        global MOST_POSITIVE_TWEET
+        global MOST_NEGATIVE_TWEET
+        global NUM_POS_TWEETS
+        global NUM_NEG_TWEETS
+        global NUM_TWEETS_OMITTED
+        global MOST_POSITIVITY
+        global MOST_NEGATIVITY
+        global NUM_NEUTRAL
+        AVG_SENTIMENT = 0.0
+        MOST_POSITIVE_TWEET = ""
+        MOST_NEGATIVE_TWEET = ""
+        NUM_POS_TWEETS = 0
+        NUM_NEG_TWEETS = 0
+        NUM_TWEETS_OMITTED = 0
+        MOST_POSITIVITY= -1
+        MOST_NEGATIVITY = 1
+        NUM_NEUTRAL = 0
+
+"""
+    Given the last several tweets from a user or hashtag, determine the
+    sentiment for each one to compute the overall sentiment of their tweets
+"""
+def get_overall_sentiment(tweets, client):
+    global NUM_POS_TWEETS
+    global NUM_NEG_TWEETS
+    global NUM_NEUTRAL
+    global MOST_POSITIVITY
+    global MOST_POSITIVE_TWEET
+    global MOST_NEGATIVITY
+    global MOST_NEGATIVE_TWEET
+
+    overall_sentiment = 0
+    
+    # Create a list of Document objects for batch processing
+    documents = [types.Document(content=tweet, type=enums.Document.Type.PLAIN_TEXT) 
+               for tweet in tweets]
+    
+    # Analyze sentiment for all documents in a single batch API call
+    batch_response = client.analyze_sentiment(documents=documents)
+    
+    # Process each result
+    for i, document_sentiment in enumerate(batch_response.documents):
+        inc_sentiment = document_sentiment.score
+        overall_sentiment += inc_sentiment
+        
+        if inc_sentiment > 0:
+            NUM_POS_TWEETS += 1
+        elif inc_sentiment < 0:
+            NUM_NEG_TWEETS += 1
+        else:
+            NUM_NEUTRAL += 1
+            
+        if inc_sentiment > MOST_POSITIVITY:
+            MOST_POSITIVITY = inc_sentiment
+            MOST_POSITIVE_TWEET = tweets[i]
+            
+        if inc_sentiment < MOST_NEGATIVITY:
+            MOST_NEGATIVITY = inc_sentiment
+            MOST_NEGATIVE_TWEET = tweets[i]
+            
+    return overall_sentiment
+
+"""
+    Given a hashtag and number of tweets, returns at most that many tweets
+    and however many tweets were considered
+"""
+def get_hashtag_tweets(num, hashtag):
+    auth = tweepy.OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
+    auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+    api = tweepy.API(auth,wait_on_rate_limit=True)
+    tweets = []
+    count = 0
+    for tweet in tweepy.Cursor(api.search,q=hashtag,count=50,lang="en", since="2019-02-16").items(50):
+        if( tweet.lang == "en" and len(tweet.text) != 0):
+            print("Original tweet: " + tweet.text)
+            filtered = filter_tweet(tweet.text)
+            print("Filtered tweet: " + filtered)
+            tweets.append(filtered)
+            count += 1
+    return tweets, count
+
+"""
+    Given the sentiment score for a set of tweets, formats the return string
+    with all necessary global statistics 
+"""
+def get_return_string(overall_sentiment, count):
+    global AVG_SENTIMENT
+    global MOST_POSITIVE_TWEET
+    global MOST_NEGATIVE_TWEET
+    global NUM_POS_TWEETS
+    global NUM_NEG_TWEETS
+    global NUM_TWEETS_OMITTED
+    global MOST_POSITIVITY
+    global MOST_NEGATIVITY
+    global NUM_NEUTRAL
+
+    sentiment_score = overall_sentiment/count
+    sentiment_percentage = 100 * sentiment_score
+    sentiment_print = ""
+    if sentiment_percentage < 0.0:
+        sentiment_print = str(sentiment_percentage*(-1)) + "% Negative" 
+    else:
+        sentiment_print = str(sentiment_percentage) + "% Positive"
+    return_string = ("Average Sentiment: " + sentiment_print + "<br/>" + "Tweets Omitted: " + str(NUM_TWEETS_OMITTED) 
+                        + "<br/>" + "Most Positive Tweet: " + MOST_POSITIVE_TWEET + "<br/>" "Most Negative Tweet: " + MOST_NEGATIVE_TWEET 
+                        + "<br/>" + "Number of Positive Tweets: " + str(NUM_POS_TWEETS) + "<br/>" + "Number of Negative Tweets: " + str(NUM_NEG_TWEETS)
+                        + "<br/>" + "Number of Neutral Tweets: " + str(NUM_NEUTRAL))
+    return return_string 
+
+@app.route('/')
+def my_form():
+        return render_template('index.html', avg_sentiment = AVG_SENTIMENT, most_positive_tweet = MOST_POSITIVE_TWEET,
+                                            most_negative_tweet = MOST_NEGATIVE_TWEET, num_pos_tweets = NUM_POS_TWEETS,
+                                            num_neg_tweets = NUM_NEG_TWEETS, num_tweets_omitted = NUM_TWEETS_OMITTED)
+
+"""
+    Essentially the main method. Prompts the end user for a username or hashtag
+    then runs sentiment analysis on the last at most 50 tweets from that 
+    username or hashtag. Stores all important statistics for return.
+"""
+@app.route('/', methods=['POST'])
+def my_form_post():
+        setGlobals()
+
+        # Instantiates a client
+        client = language.LanguageServiceClient(credentials=credentials)
+
+        # The text to analyze
+        text = request.form['text']
+        overall_sentiment = 0
+
+        # In the case of asked for user
+        if text[0] == "@":
+            # Creates twitter client from user name
+            user = TwitterClient(text)
+
+            # Retrieves past 50 tweets
+            tweets,count = user.get_tweets(50)
+   
+            # Gets overall sentiment from gathered tweets
+            overall_sentiment = get_overall_sentiment(tweets, client)
+
+            return get_return_string(overall_sentiment, count)
+        # In the case of asked for hashtag
+        elif text[0] == "#":
+            # Retrieves past 50 tweets
+            tweets, count = get_hashtag_tweets(50, text)
+            
+            # Gets overall sentiment from gathered tweets
+            overall_sentiment = get_overall_sentiment(tweets, client)
+
+            return get_return_string(overall_sentiment, count)
+        else:
+            print("Invalid input")
+
+if __name__ == "__main__":
+    app.run(host='127.0.0.1', port=8080, debug=True)
+```
+
+Summary of Changes:
+- Modified the `get_overall_sentiment` function to use batch processing through the Google Cloud Natural Language API.
+- Replaced individual sentiment analysis calls with a single batch API call for all tweets.
+- Created a list of `Document` objects for all tweets and analyzed them together.
+- Maintained the same sentiment calculation logic but applied it to the batch results.
+- Kept the same global variable updates and return value format.
+
+This change reduces the number of API calls from one per tweet to a single batch call, improving performance and efficiency while maintaining the original functionality.
+

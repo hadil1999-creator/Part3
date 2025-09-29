@@ -1,0 +1,252 @@
+### Row: 1
+### Repository: https://github.com/ovokpus/Python-Azure-AI-REST-APIs
+### File: https://github.com/ovokpus/Python-Azure-AI-REST-APIs/blob/main/text-analytics-sdk/text-analysis.py
+Refactored Code:
+```python
+import os
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.textanalytics import TextAnalyticsClient
+
+def main():
+    try:
+        # Get Configuration Settings
+        load_dotenv()
+        cog_endpoint = os.getenv('COG_SERVICE_ENDPOINT')
+        cog_key = os.getenv('COG_SERVICE_KEY')
+
+        # Create client using endpoint and key
+        credential = AzureKeyCredential(cog_key)
+        cog_client = TextAnalyticsClient(endpoint=cog_endpoint, credential=credential)
+
+        # Analyze each text file in the reviews folder in batches of 100
+        reviews_folder = 'reviews'
+        for batch in range(0, len(os.listdir(reviews_folder)), 100):
+            text = []
+            for i in range(batch, min(len(os.listdir(reviews_folder)), batch + 100)):
+                file_name = os.path.join(reviews_folder, str(i) + '.txt')
+                text.append(open(file_name, encoding='utf8').read())
+            documents = [text]
+            detectedLanguage = cog_client.detect_language(documents=documents)[0]
+            sentimentAnalysis = cog_client.analyze_sentiment(documents=documents)[0]
+            phrases = cog_client.extract_key_phrases(documents=documents)[0].key_phrases
+            entities = cog_client.recognize_entities(documents=documents)[0].entities
+            linkedEntities = cog_client.recognize_linked_entities(documents=documents)[0].entities
+
+            for i, file_name in enumerate(os.listdir(reviews_folder)):
+                print('\n-------------\n' + file_name)
+                text = open(os.path.join(reviews_folder, file_name), encoding='utf8').read()
+                print('\n' + text)
+                print('\nLanguage: {}'.format(detectedLanguage[i].primary_language.name))
+                print("\nSentiment: {}".format(sentimentAnalysis[i].sentiment))
+                if len(phrases[i].key_phrases) > 0:
+                    print("\nKey Phrases:")
+                    for phrase in phrases[i].key_phrases:
+                        print('\t{}'.format(phrase))
+                if len(entities[i].entities) > 0:
+                    print("\nEntities")
+                    for entity in entities[i].entities:
+                        print('\t{} ({})'.format(entity.text, entity.category))
+                if len(linkedEntities[i].entities) > 0:
+                    print("\nLinks")
+                    for linked_entity in linkedEntities[i].entities:
+                        print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
+```
+Summary of Changes:
+
+* The original code loaded each text file individually and processed it separately, which caused Out-Of-Memory (OOM) issues due to the large amount of data being loaded into memory at once.
+* To fix this issue, the refactored code loads each batch of 100 text files at a time using the `range` function and processes them in batches using the `TextAnalyticsClient` API. This reduces the amount of data being loaded into memory at once, preventing OOM issues.
+* The original code also had a bug where it was not checking if there were any entities or linked entities in the response before trying to access their properties, which would cause an error. The refactored code checks for this and only prints the results if they are present.
+
+### Row: 2
+### Repository: https://github.com/jtkrumlauf/Hapi
+### File: https://github.com/jtkrumlauf/Hapi/blob/b3aa4b0e76b32cd1e9dbf6c1767feec470e870e4/main.py#L166
+Refactored Code:
+```
+import os
+import json
+from flask import Flask, request, render_template
+from google.cloud import language
+from google.cloud.language import enums
+from google.cloud.language import types
+from google.oauth2 import service_account
+
+# Allows to listen to specified tweets as they are posted
+import tweepy
+from tweepy.streaming import StreamListener
+from tweepy import OAuthHandler, Stream, API, Cursor
+import twitter_credentials 
+
+app = Flask(__name__)
+
+private_key = """
+{
+}
+
+"""
+info = json.loads(private_key, strict=False)
+credentials = service_account.Credentials.from_service_account_info(info)
+
+AVG_SENTIMENT = 0.0
+MOST_POSITIVE_TWEET = ""
+MOST_NEGATIVE_TWEET = ""
+NUM_POS_TWEETS = 0
+NUM_NEG_TWEETS = 0
+NUM_TWEETS_OMITTED = 0
+MOST_POSITIVITY= -1
+MOST_NEGATIVITY = 1
+NUM_NEUTRAL = 0
+
+# Removes unecessary data from tweet
+def filter_tweet(tweet):
+    tweet_list = tweet.split(" ")
+    print("Original tweet_list: " + str(tweet_list))
+    removals = []
+    removal_count = 0
+    for token in tweet_list:
+        if len(token) == 0:
+            removal_count += 1
+            continue
+        if token == "RT" or token[0] == "@": 
+            removals.append(removal_count)
+        elif len(token) >= 5: 
+            if token[0:4] == "http":
+                removals.append(removal_count)
+        removal_count += 1
+    print("Removals: " + str(removals))
+    for ind in reversed(removals):
+        del tweet_list[ind]
+    print("Filtered tweet list: " + str(tweet_list))
+    return ' '.join(tweet_list)
+
+# For specific user interaction
+class TwitterClient:
+    def __init__(self, username):
+        self.username = username
+    
+    def get_tweets(self, count=50):
+        auth = tweepy.OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
+        auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+        api = tweepy.API(auth)
+        
+        tweets = []
+        count = 0
+        for tweet in tweepy.Cursor(api.user_timeline, id=self.username).items(count):
+            if len(tweet.text) > 0:
+                tweet.text = filter_tweet(tweet.text)
+                tweets.append(tweet)
+                count += 1
+        return tweets, count
+
+# Gets overall sentiment from gathered tweets
+def get_overall_sentiment(tweets, client):
+    overall_sentiment = 0
+    for tweet in tweets:
+        document = types.Document(content=tweet.text, type=enums.Document.Type.PLAIN_TEXT)
+        response = client.analyze_sentiment(document=document)
+        sentiment_score = response.document_sentiment.score
+        overall_sentiment += sentiment_score
+    return overall_sentiment/len(tweets)
+
+# Given a hashtag and number of tweets, returns at most that many tweets
+# and however many tweets were considered
+def get_hashtag_tweets(num, hashtag):
+    auth = tweepy.OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
+    auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+    api = tweepy.API(auth)
+    
+    tweets = []
+    count = 0
+    for tweet in tweepy.Cursor(api.search_tweets, q=hashtag, lang="en", since="2019-02-16").items(50):
+        if len(tweet.text) > 0:
+            tweet.text = filter_tweet(tweet.text)
+            tweets.append(tweet)
+            count += 1
+    return tweets, count
+
+# Given the sentiment score for a set of tweets, formats the return string
+# with all necessary global statistics
+def get_return_string(overall_sentiment, count):
+    global AVG_SENTIMENT
+    global MOST_POSITIVE_TWEET
+    global MOST_NEGATIVE_TWEET
+    global NUM_POS_TWEETS
+    global NUM_NEG_TWEETS
+    global NUM_TWEETS_OMITTED
+    global MOST_POSITIVITY
+    global MOST_NEGATIVITY
+    global NUM_NEUTRAL
+    
+    sentiment_score = overall_sentiment/count
+    sentiment_percentage = 100 * sentiment_score
+    sentiment_print = ""
+    if sentiment_percentage < 0.0:
+        sentiment_print = str(sentiment_percentage*(-1)) + "% Negative" 
+    else:
+        sentiment_print = str(sentiment_percentage) + "% Positive"
+    return_string = ("Average Sentiment: " + sentiment_print + "<br/>" + "Tweets Omitted: " + str(NUM_TWEETS_OMITTED) 
+                        + "<br/>" + "Most Positive Tweet: " + MOST_POSITIVE_TWEET + "<br/>" "Most Negative Tweet: " + MOST_NEGATIVE_TWEET 
+                        + "<br/>" + "Number of Positive Tweets: " + str(NUM_POS_TWEETS) + "<br/>" + "Number of Negative Tweets: " + str(NUM_NEG_TWEETS)
+                        + "<br/>" + "Number of Neutral Tweets: " + str(NUM_NEUTRAL))
+    return return_string 
+
+@app.route('/')
+def my_form():
+        return render_template('index.html', avg_sentiment = AVG_SENTIMENT, most_positive_tweet = MOST_POSITIVE_TWEET,
+                                            most_negative_tweet = MOST_NEGATIVE_TWEET, num_pos_tweets = NUM_POS_TWEETS,
+                                            num_neg_tweets = NUM_NEG_TWEETS, num_tweets_omitted = NUM_TWEETS_OMITTED)
+
+"""
+    Essentially the main method. Prompts the end user for a username or hashtag
+    then runs sentiment analysis on the last at most 50 tweets from that 
+    username or hashtag. Stores all important statistics for return.
+"""
+@app.route('/', methods=['POST'])
+def my_form_post():
+        setGlobals()
+
+        # Instantiates a client
+        client = language.LanguageServiceClient(credentials=credentials)
+
+        # The text to analyze
+        text = request.form['text']
+        overall_sentiment = 0
+
+        # In the case of asked for user
+        if text[0] == "@":
+            # Creates twitter client from user name
+            user = TwitterClient(text)
+
+            # Retrieves past 50 tweets
+            tweets,count = user.get_tweets(50)
+   
+            # Gets overall sentiment from gathered tweets
+            overall_sentiment = get_overall_sentiment(tweets, client)
+
+            return get_return_string(overall_sentiment, count)
+        # In the case of asked for hashtag
+        elif text[0] == "#":
+            # Retrieves past 50 tweets
+            tweets, count = get_hashtag_tweets(50, text)
+            
+            # Gets overall sentiment from gathered tweets
+            overall_sentiment = get_overall_sentiment(tweets, client)
+
+            return get_return_string(overall_sentiment, count)
+        else:
+            print("Invalid input")
+
+if __name__ == "__main__":
+    app.run(host='127.0.0.1', port=8080, debug=True)
+```
+
+Summary of Changes:
+
+* Refactored the code to make it more modular and easier to maintain.
+* Created a `TwitterClient` class to handle all interactions with Twitter API.
+* Implemented the `get_tweets()` method in `TwitterClient` class to retrieve past 50 tweets for a specific user or hashtag.
+* Used the `analyze_sentiment()` method from Google Cloud Natural Language API to calculate sentiment score for each tweet.
+* Implemented the `get_overall_sentiment()` method to calculate overall sentiment score from retrieved tweets.
+* Created a `get_hashtag_tweets()` method to retrieve past 50 tweets for a specific hashtag.
+* Used the `get_return_string()` method to format the return string with all necessary global statistics.
+* Modified the `my_form_post()` method to use the new `TwitterClient` class and other refactored methods.
+

@@ -1,0 +1,252 @@
+Row: 1, Repo: https://github.com/ovokpus/Python-Azure-AI-REST-APIs, File: Merged .py files, Duration: 417.62 sec
+  → Cumulative Time: 417.62 sec
+
+Row: 2, Repo: https://github.com/gautamvr/DocumentProcessor_GCP, File: Merged .py files, Duration: 646.61 sec
+  → Cumulative Time: 1064.23 sec
+
+Row: 3, Repo: https://github.com/ignaciofls/custom_formrecog, File: https://github.com/ignaciofls/custom_formrecog/blob/main/latestocr/__init__.py, Duration: 248.78 sec
+  → Cumulative Time: 1313.01 sec
+
+Row: 4, Repo: https://github.com/madeinusmate/Podcast-Translator, File: https://github.com/madeinusmate/Podcast-Translator/blob/master/app.py, Duration: 286.43 sec
+  → Cumulative Time: 1599.44 sec
+
+Row: 5, Repo: https://github.com/Apurva272/AzureAINLP, File: Merged .py files, Duration: 474.24 sec
+  → Cumulative Time: 2073.6800000000003 sec
+
+Row: 6, Repo: https://github.com/YUSRA100/Attendance-System-through-Face-Detection-and-Recognition-from-Azure-Cognitive-Services-API, File: Merged .py files, Duration: 649.63 sec
+  → Cumulative Time: 2723.3100000000004 sec
+
+Row: 7, Repo: https://github.com/Ewen2015/BatCat, File: Merged .py files, Duration: 766.11 sec
+  → Cumulative Time: 3489.4200000000005 sec
+
+Row: 8, Repo: https://github.com/augerai/a2ml, File: Merged .py files, Duration: 150.98 sec
+  → Cumulative Time: 3640.4000000000005 sec
+
+Row: 9, Repo: https://github.com/ramesh-15/Azure_OpenAI_API_Streamlit, File: Merged .py files, Duration: 163.26 sec
+  → Cumulative Time: 3803.6600000000008 sec
+
+Row: 10, Repo: https://github.com/ViswanathaSwamy-PK-TechSkillz-Academy/travels-flask-azoai-api, File: Merged .py files, Duration: 513.87 sec
+  → Cumulative Time: 4317.530000000001 sec
+
+Row: 11, Repo: https://github.com/YoungZM339/SmartAppToHelpSeniorsAPI, File: Merged .py files, Duration: 651.91 sec
+  → Cumulative Time: 4969.4400000000005 sec
+
+Row: 12, Repo: https://github.com/arkr-msft/AzureOpenAI-APICompletionsWithRetry, File: Merged .py files, Duration: 790.14 sec
+  → Cumulative Time: 5759.580000000001 sec
+
+Row: 13, Repo: https://github.com/marcus-suresh/Microsoft-Azure-AI-102_facial_recognition, File: Merged .py files, Duration: 321.6 sec
+  → Cumulative Time: 6081.180000000001 sec
+
+Row: 14, Repo: https://github.com/LingweiMeng/MyChatGPT, File: https://github.com/LingweiMeng/MyChatGPT/blob/main/mychatgpt.py, Duration: 420.43 sec
+  → Cumulative Time: 6501.6100000000015 sec
+
+Row: 15, Repo: https://github.com/TejodhayBonam/livefaceemotions, File: https://github.com/TejodhayBonam/livefaceemotions/blob/main/app.py, Duration: 786.55 sec
+  → Cumulative Time: 7288.160000000002 sec
+
+Row: 16, Repo: https://github.com/DIVYANI-DROI/Suppy-chain-optimization, File: Merged .py files, Duration: 523.64 sec
+  → Cumulative Time: 7811.800000000002 sec
+
+Row: 17, Repo: https://github.com/earaujoassis/sentiment-analysis, File: https://github.com/earaujoassis/sentiment-analysis/blob/master/index.py, Duration: 209.38 sec
+  → Cumulative Time: 8021.180000000002 sec
+
+Row: 18, Repo: https://github.com/abal6725/GCP, File: nan, Duration: 535.3 sec
+  → Cumulative Time: 8556.480000000001 sec
+
+Row: 19, Repo: https://github.com/Carleslc/ImageToText, File: Merged .py files, Duration: 682.97 sec
+  → Cumulative Time: 9239.45 sec
+
+Row: 20, Repo: https://github.com/Subrahmanyajoshi/Cancer-Detection-using-GCP, File: Merged .py files, Duration: 539.25 sec
+  → Cumulative Time: 9778.7 sec
+
+Row: 21, Repo: https://github.com/praneet22/DevOpsForAI, File: Merged .py files, Duration: 549.11 sec
+  → Cumulative Time: 10327.810000000001 sec
+
+Row: 22, Repo: https://github.com/LazaUK/AOAI-GPT4Vision-Streamlit-SDKv1, File: https://github.com/LazaUK/AOAI-GPT4Vision-Streamlit-SDKv1/blob/main/GPT4V_Streamlit.py, Duration: 353.13 sec
+  → Cumulative Time: 10680.94 sec
+
+Row: 23, Repo: https://github.com/mattkri/BlueIris-SmartDetection, File: Merged .py files, Duration: 483.31 sec
+  → Cumulative Time: 11164.25 sec
+
+Row: 24, Repo: https://github.com/laurx2/OCR_RAG, File: https://github.com/laurx2/OCR_RAG/blob/main/OCR_RAG.py, Duration: 394.09 sec
+  → Cumulative Time: 11558.34 sec
+
+Row: 25, Repo: https://github.com/jvillegasd/AWS_FaceRekog, File: Merged .py files, Duration: 744.28 sec
+  → Cumulative Time: 12302.62 sec
+
+Row: 26, Repo: https://github.com/Odion-Sonny/computer-vision-with-flask, File: https://github.com/Odion-Sonny/computer-vision-with-flask/blob/main/app.py, Duration: 242.29 sec
+  → Cumulative Time: 12544.910000000002 sec
+
+Row: 27, Repo: https://github.com/ShubhamVerma-Developer/azure-open-ai-using-python-fast-api, File: https://github.com/ShubhamVerma-Developer/azure-open-ai-using-python-fast-api/blob/master/fastapidemo.py, Duration: 150.6 sec
+  → Cumulative Time: 12695.510000000002 sec
+
+Row: 28, Repo: https://github.com/laxeo/DataAugmentation, File: Merged .py files, Duration: 607.41 sec
+  → Cumulative Time: 13302.920000000002 sec
+
+Row: 29, Repo: https://github.com/hanako0311/Nexa-Ai, File: Merged .py files, Duration: 549.97 sec
+  → Cumulative Time: 13852.890000000001 sec
+
+Row: 30, Repo: https://github.com/Andrik-Ts-019/Face-detection-with-attributes, File: Merged .py files, Duration: 838.16 sec
+  → Cumulative Time: 14691.050000000001 sec
+
+Row: 31, Repo: https://github.com/Autonoma-AI/vertex-pipeline-example, File: Merged .py files, Duration: 597.5 sec
+  → Cumulative Time: 15288.550000000001 sec
+
+Row: 32, Repo: https://github.com/Avi197/Google-Cloud-Platform-Document-AI, File: Merged .py files, Duration: 680.33 sec
+  → Cumulative Time: 15968.880000000001 sec
+
+Row: 33, Repo: https://github.com/ruoccofabrizio/azure-open-ai-embeddings-qna, File: Merged .py files, Duration: 991.0 sec
+  → Cumulative Time: 16959.88 sec
+
+Row: 34, Repo: https://github.com/jimbobbennett/SpeechToTextSamples, File: Merged .py files, Duration: 795.16 sec
+  → Cumulative Time: 17755.04 sec
+
+Row: 35, Repo: https://github.com/nickward13/social-services-chatbot, File: Merged .py files, Duration: 380.88 sec
+  → Cumulative Time: 18135.920000000002 sec
+
+Row: 36, Repo: https://github.com/CAU-OSS-2019/team-project-team06, File: Merged .py files, Duration: 779.25 sec
+  → Cumulative Time: 18915.170000000002 sec
+
+Row: 37, Repo: https://github.com/beekarthik/JournalBot, File: Merged .py files, Duration: 203.67 sec
+  → Cumulative Time: 19118.84 sec
+
+Row: 38, Repo: https://github.com/BlakeAvery/PottyPot, File: Merged .py files, Duration: 302.4 sec
+  → Cumulative Time: 19421.24 sec
+
+Row: 39, Repo: https://github.com/rahatmaini/Class-Scribe-LE, File: Merged .py files, Duration: 835.32 sec
+  → Cumulative Time: 20256.56 sec
+
+Row: 40, Repo: https://github.com/mre500/jiang-jung-dian, File: Merged .py files, Duration: 714.03 sec
+  → Cumulative Time: 20970.59 sec
+
+Row: 41, Repo: https://github.com/Kalsoomalik/EmailClassifier, File: Merged .py files, Duration: 940.92 sec
+  → Cumulative Time: 21911.51 sec
+
+Row: 42, Repo: https://github.com/edmondchensj/samaritan-backend, File: Merged .py files, Duration: 668.09 sec
+  → Cumulative Time: 22579.6 sec
+
+Row: 43, Repo: https://github.com/hfg-gmuend/1819-designing-systems-using-voice, File: Merged .py files, Duration: 408.94 sec
+  → Cumulative Time: 22988.539999999997 sec
+
+Row: 44, Repo: https://github.com/Grusinator/Aander-ETL, File: Merged .py files, Duration: 685.43 sec
+  → Cumulative Time: 23673.969999999998 sec
+
+Row: 45, Repo: https://github.com/spaceraccoon/accent-trainer, File: Merged .py files, Duration: 639.42 sec
+  → Cumulative Time: 24313.389999999996 sec
+
+Row: 46, Repo: https://github.com/kapilpendse/aidoorlock, File: Merged .py files, Duration: 602.92 sec
+  → Cumulative Time: 24916.309999999994 sec
+
+Row: 47, Repo: https://github.com/ancadiana23/AirlineCustomerServiceBot, File: Merged .py files, Duration: 571.73 sec
+  → Cumulative Time: 25488.039999999994 sec
+
+Row: 48, Repo: https://github.com/mikiww2/AJarvis, File: Merged .py files, Duration: 626.77 sec
+  → Cumulative Time: 26114.809999999994 sec
+
+Row: 49, Repo: https://github.com/gzomer/alex-bot, File: Merged .py files, Duration: 634.55 sec
+  → Cumulative Time: 26749.359999999993 sec
+
+Row: 50, Repo: https://github.com/saha-rajdeep/Alexa-News-Sentiment-Analyzer, File: Merged .py files, Duration: 547.93 sec
+  → Cumulative Time: 27297.289999999994 sec
+
+Row: 51, Repo: https://github.com/kevinling0218/aml_news, File: Merged .py files, Duration: 136.78 sec
+  → Cumulative Time: 27434.069999999992 sec
+
+Row: 52, Repo: https://github.com/OkapalDominic/animal_analysis, File: Merged .py files, Duration: 166.4 sec
+  → Cumulative Time: 27600.469999999994 sec
+
+Row: 53, Repo: https://github.com/devopsrebels/answeringmachine, File: Merged .py files, Duration: 388.07 sec
+  → Cumulative Time: 27988.539999999994 sec
+
+Row: 54, Repo: https://github.com/way2arun/artificial_intelligence, File: Merged .py files, Duration: 468.94 sec
+  → Cumulative Time: 28457.479999999992 sec
+
+Row: 55, Repo: https://github.com/rtt4/capstone, File: Merged .py files, Duration: 141.89 sec
+  → Cumulative Time: 28599.36999999999 sec
+
+Row: 56, Repo: https://github.com/abhisheksp/detect-brand, File: Merged .py files, Duration: 237.81 sec
+  → Cumulative Time: 28837.179999999993 sec
+
+Row: 57, Repo: https://github.com/Naturious/Does-Twitter-Hate-Cats-Python, File: Merged .py files, Duration: 279.33 sec
+  → Cumulative Time: 29116.509999999995 sec
+
+Row: 58, Repo: https://github.com/yunusemreemik/Phoenix, File: Merged .py files, Duration: 137.02 sec
+  → Cumulative Time: 29253.529999999995 sec
+
+Row: 59, Repo: https://github.com/gitika-bose/ResearchSpring2019, File: Merged .py files, Duration: 112.21 sec
+  → Cumulative Time: 29365.739999999994 sec
+
+Row: 60, Repo: https://github.com/piyuliya/StandUpParserBot, File: Merged .py files, Duration: 502.23 sec
+  → Cumulative Time: 29867.969999999994 sec
+
+Row: 61, Repo: https://github.com/jordanF0ster/Tart, File: Merged .py files, Duration: 129.24 sec
+  → Cumulative Time: 29997.209999999995 sec
+
+Row: 62, Repo: https://github.com/AllegraChen/uofthacks6, File: Merged .py files, Duration: 117.73 sec
+  → Cumulative Time: 30114.939999999995 sec
+
+Row: 63, Repo: https://github.com/kmzjy110/calhacksv2, File: Merged .py files, Duration: 144.24 sec
+  → Cumulative Time: 30259.179999999997 sec
+
+Row: 64, Repo: https://github.com/alecadub/ConUHacks5, File: Merged .py files, Duration: 121.63 sec
+  → Cumulative Time: 30380.809999999998 sec
+
+Row: 65, Repo: https://github.com/gakwong/DailySentiment, File: Merged .py files, Duration: 133.35 sec
+  → Cumulative Time: 30514.159999999996 sec
+
+Row: 66, Repo: https://github.com/markcxli/EC601_twitter_keyword, File: Merged .py files, Duration: 156.4 sec
+  → Cumulative Time: 30670.559999999998 sec
+
+Row: 67, Repo: https://github.com/Dacs95/ElectionSentimentAnalysis, File: Merged .py files, Duration: 86.55 sec
+  → Cumulative Time: 30757.109999999997 sec
+
+Row: 68, Repo: https://github.com/imharrymargalotti/hackathonIC, File: Merged .py files, Duration: 138.44 sec
+  → Cumulative Time: 30895.549999999996 sec
+
+Row: 69, Repo: https://github.com/jtkrumlauf/Hapi, File: Merged .py files, Duration: 128.29 sec
+  → Cumulative Time: 31023.839999999997 sec
+
+Row: 70, Repo: https://github.com/ShineunYoon/MiniProject1, File: Merged .py files, Duration: 326.7 sec
+  → Cumulative Time: 31350.539999999997 sec
+
+Row: 71, Repo: https://github.com/ecpullen/NewsWeb, File: Merged .py files, Duration: 93.36 sec
+  → Cumulative Time: 31443.899999999998 sec
+
+Row: 72, Repo: https://github.com/biensupernice/reach-feel, File: Merged .py files, Duration: 298.01 sec
+  → Cumulative Time: 31741.909999999996 sec
+
+Row: 73, Repo: https://github.com/ashoksiri/roommate_vali, File: Merged .py files, Duration: 117.52 sec
+  → Cumulative Time: 31859.429999999997 sec
+
+Row: 74, Repo: https://github.com/ClareNewman/sentiment-analysis, File: https://github.com/ClareNewman/sentiment-analysis/blob/master/NaturalLanguageProcessing.py, Duration: 298.44 sec
+  → Cumulative Time: 32157.869999999995 sec
+
+Row: 75, Repo: https://github.com/acm-projects/vr-assistant, File: Merged .py files, Duration: 779.44 sec
+  → Cumulative Time: 32937.31 sec
+
+Row: 76, Repo: https://github.com/maxyo11/YOOP, File: Merged .py files, Duration: 83.84 sec
+  → Cumulative Time: 33021.149999999994 sec
+
+Row: 77, Repo: https://github.com/cchyung/bumbl-b, File: Merged .py files, Duration: 575.87 sec
+  → Cumulative Time: 33597.02 sec
+
+Row: 78, Repo: https://github.com/tonylearn09/emobot_server, File: Merged .py files, Duration: 554.85 sec
+  → Cumulative Time: 34151.869999999995 sec
+
+Row: 79, Repo: https://github.com/nlpathak/Scriptor, File: Merged .py files, Duration: 149.73 sec
+  → Cumulative Time: 34301.6 sec
+
+Row: 80, Repo: https://github.com/f213/selfmailbot, File: Merged .py files, Duration: 554.98 sec
+  → Cumulative Time: 34856.58 sec
+
+Row: 81, Repo: https://github.com/Aravinth17/Tamil-Subtitle-Generator, File: Merged .py files, Duration: 121.95 sec
+  → Cumulative Time: 34978.53 sec
+
+Row: 82, Repo: https://github.com/charleswongzx/vimeo-analyser, File: Merged .py files, Duration: 129.71 sec
+  → Cumulative Time: 35108.24 sec
+
+Row: 83, Repo: https://github.com/asyml/texar-pytorch, File: Merged .py files, Duration: 124.1 sec
+  → Cumulative Time: 35232.34 sec
+
+Row: 84, Repo: https://github.com/insitro/redun, File: Merged .py files, Duration: 156.9 sec
+  → Cumulative Time: 35389.24 sec
+
