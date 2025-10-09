@@ -13,6 +13,7 @@ I will provide you with a code snippet that contains the "Improper handling of M
 
 Here is a description of the misuse:
 Failure to adhere to API request rate limits can compromise the stability and performance of the ML service. Developers may not adequately manage these limits, causing predictions to abruptly halt when the rate is exceeded. For instance, surpassing the maximum number of API calls within a set timeframe, such as requests per second defined by the Azure OpenAI service, can result in delayed or rejected requests until they conform to the permitted rate.
+
 Your task is to refactor the code to eliminate the "Improper handling of ML API limits" misuse, while preserving the original behavior.
 
 Be sure the refactored code follows best practices, is modular, and improves maintainability.
