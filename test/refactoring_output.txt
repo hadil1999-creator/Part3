@@ -1,0 +1,61 @@
+Number of chunks: 20
+documents: [Document(metadata={}, page_content='\nimport math\n\ndef add(a,'), Document(metadata={}, page_content=' b):\n    return a + b'), Document(metadata={}, page_content='\n\ndef multiply(a, b):\n'), Document(metadata={}, page_content='    result = 0\n   '), Document(metadata={}, page_content=' for _ in range(b):\n  '), Document(metadata={}, page_content='      result += a\n '), Document(metadata={}, page_content='   return result\n\nclass Calculator:\n'), Document(metadata={}, page_content='    def __init__(self):'), Document(metadata={}, page_content='\n        self.'), Document(metadata={}, page_content='value = 0\n\n    def add('), Document(metadata={}, page_content='self, x):\n     '), Document(metadata={}, page_content='   self.value += x\n\n  '), Document(metadata={}, page_content='  def subtract(self, x):\n '), Document(metadata={}, page_content='       self.value -='), Document(metadata={}, page_content=' x\n\ndef big_function():\n '), Document(metadata={}, page_content='   data = [i for i in range'), Document(metadata={}, page_content='(1000)]\n    squared = ['), Document(metadata={}, page_content='x**2 for x in data]\n '), Document(metadata={}, page_content='   total = sum(squared)\n'), Document(metadata={}, page_content='    return total\n')]
+embeddings: client=<openai.resources.embeddings.Embeddings object at 0x000001F135FF7860> async_client=<openai.resources.embeddings.AsyncEmbeddings object at 0x000001F137663CB0> model='text-embedding-3-large' dimensions=None deployment=None openai_api_version='2024-02-01' openai_api_base=None openai_api_type='azure' openai_proxy=None embedding_ctx_length=8191 openai_api_key=SecretStr('**********') openai_organization=None allowed_special=None disallowed_special=None chunk_size=2048 max_retries=2 request_timeout=None headers=None tiktoken_enabled=True tiktoken_model_name=None show_progress_bar=False model_kwargs={} skip_empty=False default_headers=None default_query=None retry_min_seconds=4 retry_max_seconds=20 http_client=None http_async_client=None check_embedding_ctx_length=True azure_endpoint='https://refactoring.openai.azure.com/' azure_ad_token=None azure_ad_token_provider=None azure_ad_async_token_provider=None validate_base_url=True
+vector_store: <langchain_community.vectorstores.faiss.FAISS object at 0x000001F172630560>
+docs: [Document(id='95ec745c-cb68-4f48-8e46-e00f38834476', metadata={}, page_content='x**2 for x in data]\n '), Document(id='5733ae37-5c6e-444d-a264-0110d74a3ec4', metadata={}, page_content='(1000)]\n    squared = [')]
+=== Retrieved Chunks ===
+Chunk 1:
+x**2 for x in data]
+ 
+------------------------------
+Chunk 2:
+(1000)]
+    squared = [
+------------------------------
+
+=== Refactored Chunks ===
+# Refactored version of:
+x**2 for x in data]
+ 
+# Refactored version of:
+(1000)]
+    squared = [
+
+
+------------------
+Overall Purpose of the Code
+
+a mini RAG pipeline for code refactoring:
+
+Takes a large codebase (Python code in a string).
+
+Splits it into manageable chunks (currently token-based).
+
+Converts each chunk into a vector embedding using Azure OpenAI.
+
+Stores embeddings in a FAISS vector store for semantic search.
+
+Queries the vector store to find relevant code chunks for a specific task.
+
+(refactors retrieved chunks (mock LLM refactoring in your example).)
+
+So, the code is essentially retrieval-augmented generation (RAG) for code analysis.
+
+
+Problems: 
+
+Chunk size too small → loss of context
+
+Functions, classes, loops need 50–500 tokens per chunk depending on code size.
+
+No overlap → context loss at boundaries
+
+Overlap of 50–100 tokens ensures multi-line code blocks are preserved across chunks.
+
+Tiny fragments → useless LLM output
+
+LLMs need complete logical units, not partial lines.
+
+Too many chunks → inefficiency
+
+Embeddings and vector store operations become slow and costly.

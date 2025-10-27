@@ -1,3 +1,34 @@
+"""Problems with the Current Prompts & LLM Preprocessing
+
+Too strict filtering rules
+
+If the LLM cannot confidently identify relevant lines, it removes everything, resulting in empty output.
+
+LLM cannot reliably detect all relevant code, especially if it is indirectly related or abstracted.
+
+Dependency analysis is hard for LLM
+
+Code may have indirect dependencies (helper functions, variable initialization, utility code).
+
+LLM often deletes these because they don’t explicitly match the task keywords. (hard for us to reassemble the code)
+
+LLM may interpret “nothing relevant” as “delete everything.”
+
+Original code context is lost
+
+LLM processes the code as a single snippet, without understanding file structure, imports, or execution flow.
+
+This causes the LLM to remove lines that are necessary for correctness but not explicitly mentioned in the prompt.
+
+LLM hallucination / overconfidence
+
+It tends to over-prune if unsure about relevance.
+
+LLM may only focus on parts that mention keywords and ignore other relevant code.
+
+If code is flattened or newlines/indentation are inconsistent, the LLM cannot parse structure properly.
+"""
+
 import pandas as pd
 from dotenv import load_dotenv
 from groq import Groq
