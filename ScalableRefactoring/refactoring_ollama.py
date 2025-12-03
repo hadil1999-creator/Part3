@@ -22,7 +22,7 @@ prompt_template = """
 You are a senior software engineer specializing in code quality, refactoring, and design patterns.
 
 I will provide you with a code snippet that contains the "{misuse_name}" misuse.
-
+ 
 Misuse Description:
 {misuse_description}
 
@@ -79,7 +79,7 @@ Summary of Changes:
 """
 
 # === Model settings ===
-model_name = 'llama3'
+model_name = 'gemma'
 cumulative_time = 0
 
 # Add new columns to store results

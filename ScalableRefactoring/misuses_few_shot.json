@@ -1,0 +1,57 @@
+{
+  "Misinterpreting Output": {
+    "description": "ML cloud services (including those from Google Cloud, AWS, and Microsoft Azure) frequently provide pre-trained models that return simplified metrics or aggregated values derived from complex internal representations. Developers may misinterpret these outputs if they overlook how multiple values should be combined or misunderstand the intended meaning of individual metrics. Misinterpreting output can lead to incorrect conclusions, faulty application logic, and subtle, hard-to-trace bugs. For example, many services, such as Google's NLP Sentiment Analysis, return a pair of values like 'score' (polarity, e.g., negative to positive) and 'magnitude' (overall strength or intensity). To accurately determine the final result, developers must consider both values together: a score's direction combined with a significant magnitude indicates a strong, clear classification (e.g., strongly positive or strongly negative), while a score near zero or with low magnitude indicates a neutral or mixed/ambiguous result. Similar multi-metric dependencies exist across various models and providers, such as object detection confidence scores paired with bounding box probabilities, or prediction classes accompanied by loss/error indicators. Ignoring this necessary synthesis reduces model reliability and the quality of decision-making.",
+    "examples": {
+      "positive": "A developer using Google Cloud Natural Language API computes sentiment by combining 'score' and 'magnitude' to derive a clear interpretation, such as 'strongly positive' when score=0.9 and magnitude=0.8.",
+      "negative": "A developer reads only the 'score' field from Google Cloud Sentiment Analysis and assumes score=0.2 means 'positive' sentiment, ignoring that the magnitude=0.1 indicates a neutral or weak signal."
+    }
+  },
+
+  "Non Specification Of Early Stopping Criteria": {
+    "description": "ML services typically offer options to set early stopping criteria, helping to avoid overfitting and unnecessary computational expenses. However, developers sometimes fail to specify these criteria, which allows the training to proceed for more epochs than necessary. This oversight can result in wasted computational resources, increased training duration, higher costs, and potential overfitting.",
+    "examples": {
+      "positive": "In AWS SageMaker, a developer configures early stopping by monitoring validation loss and halting training when the loss fails to improve for 5 consecutive epochs.",
+      "negative": "A developer launches a training job on Azure Machine Learning without specifying early stopping criteria, allowing the model to continue training for 100 epochs even after the validation loss plateaus."
+    }
+  },
+
+  "Ignoring Monitoring Data Drift": {
+    "description": "Data drift occurs when the incoming data distribution differs from the training data, leading to degraded model accuracy over time. Cloud providers recommend implementing skew and drift detection mechanisms to monitor these changes and alert developers when significant changes occur. By detecting data drift early, models can be retrained or adjusted to ensure they continue performing as expected in production environments.",
+    "examples": {
+      "positive": "The developer enables drift detection on Vertex AI and sets up alerts to trigger retraining when feature distribution changes exceed 15%.",
+      "negative": "A team deploys a model on AWS SageMaker without configuring data drift monitoring. Months later, model accuracy drops due to distributional changes in user input data."
+    }
+  },
+
+  "Not Using Training Checkpoints": {
+    "description": "Cloud providers offer the ability to resume training from the most recent checkpoint, saving the current state of the experiment rather than starting from scratch. This can save significant time and computational resources, especially when training large and complex models. However, developers may neglect to save training checkpoints in cloud storage. If a model fails and checkpoints have not been saved, the entire training job or pipeline will terminate, resulting in a loss of data since the model's state is not preserved in memory.",
+    "examples": {
+      "positive": "A developer training a large image classification model on Google Cloud AI Platform configures checkpoint saving every 1,000 steps to Cloud Storage, enabling quick recovery from interruptions.",
+      "negative": "A developer trains a model on AWS SageMaker but forgets to enable checkpoint saving. When the instance fails at epoch 45, all training progress is lost."
+    }
+  },
+
+  "Improper Handling Of Ml Api Limits": {
+    "description": "Failure to adhere to API request rate limits can compromise the stability and performance of the ML service. Developers may not adequately manage these limits, causing predictions to abruptly halt when the rate is exceeded. For instance, surpassing the maximum number of API calls within a set timeframe, such as requests per second defined by the Azure OpenAI service, can result in delayed or rejected requests until they conform to the permitted rate.",
+    "examples": {
+      "positive": "A developer integrating Azure OpenAI API implements a rate-limiting mechanism with exponential backoff and retry logic to stay within the allowed request rate.",
+      "negative": "A developer sends thousands of simultaneous requests to the Azure OpenAI API without throttling, causing 429 'Too Many Requests' errors and failed responses."
+    }
+  },
+
+  "Ignoring Testing Schema Mismatch": {
+    "description": "Cloud providers offer ML services to detect unmatched data schemas, which include feature or data distribution mismatches between training, testing, and production data, often by raising alerts. However, developers may ignore setting up these alerts or disable them. For example, Amazon ML displays alerts if the schemas for the training and evaluation data sources are not consistent. Disabling these alerts can result in missing discrepancies, such as features present in the training data but absent in the evaluation data, or detecting unexpected additional features. This oversight may weaken the model's accuracy and performance in the production environment.",
+    "examples": {
+      "positive": "A developer on Amazon ML enables schema validation to compare training and evaluation datasets, ensuring that all required features align before deploying the model.",
+      "negative": "A developer disables Amazon ML’s schema mismatch alerts and deploys the model without noticing that the evaluation data is missing two critical features, reducing prediction accuracy."
+    }
+  },
+
+  "Not Using Batch Api For Data Processing": {
+    "description": "Cloud providers offer batch processing APIs to optimize data loading performance by handling data in batches. However, developers sometimes fail to use these batch APIs, choosing instead to load data items individually or implement their own batch processing solutions. Not using a batch API can cause Out-Of-Memory (OOM) issues, excessive network traffic, and significant delays in data loading, ultimately slowing down model training and increasing operational costs.",
+    "examples": {
+      "positive": "A developer uses the Google Cloud ML batch prediction API to process large datasets efficiently, minimizing network overhead and resource usage.",
+      "negative": "A developer processes millions of records one by one through the AWS ML API instead of using batch endpoints, resulting in slow performance and excessive API billing costs."
+    }
+  }
+}
